@@ -4,6 +4,7 @@ export interface Member {
   id: number;
   username: string;
   dateOfBirth: Date;
+  age: number;
   createdAt: Date;
   lastActive: Date;
   knownAs: string;
