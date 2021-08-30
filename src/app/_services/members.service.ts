@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
 
 const storageData = JSON.parse(localStorage.getItem("users") || "{}");
-const token = storageData['token'] ? storageData['token'] || null;
+const token = storageData['token'] ? storageData['token'] : null;
 
 const httpOptions = {
   headers: new HttpHeaders({
