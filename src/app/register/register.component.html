@@ -2,13 +2,33 @@
   <h2 class="text-center">Sign Up</h2>
   <hr>
   <div class="form-group">
-    <input type="text" class="form-control" formControlName="username" placeholder="username">
+    <input [class.is-invalid]='registerForm.controls.username.errors && registerForm.controls.username.touched'
+      type="text" class="form-control" formControlName="username" placeholder="username">
+    <div class="invalid-feedback">Please enter a username</div>
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" formControlName="password" placeholder="password">
+    <input [class.is-invalid]='registerForm.controls.password.errors && registerForm.controls.password.touched'
+      type="password" class="form-control" formControlName="password" placeholder="password">
+    <div *ngIf="registerForm.get('password')?.hasError('required')" class="invalid-feedback">
+      Please enter a password
+    </div>
+    <div *ngIf="registerForm.get('password')?.hasError('minlength')" class="invalid-feedback">
+      Password should have atleast 4 characters
+    </div>
+    <div *ngIf="registerForm.get('password')?.hasError('maxlength')" class="invalid-feedback">
+      Passowrd should have at most 8 characters
+    </div>
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+    <input
+      [class.is-invalid]='registerForm.controls.confirmPassword.errors && registerForm.controls.confirmPassword.touched'
+      type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+    <div *ngIf="registerForm.get('confirmPassword')?.hasError('required')" class="invalid-feedback">
+      Please confirm your password
+    </div>
+    <div *ngIf="registerForm.get('confirmPassword')?.hasError('isMatching')" class="invalid-feedback">
+      Password entered is different
+    </div>
   </div>
   <div class="form-group text-center">
     <button class="btn btn-success mr-2" type="submit">Register</button>

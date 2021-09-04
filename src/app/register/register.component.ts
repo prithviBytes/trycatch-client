@@ -21,9 +21,9 @@ export class RegisterComponent implements OnInit {
   }
   initializeForm(){
     this.registerForm = new FormGroup({
-      username: new FormControl("Hello", Validators.required),
+      username: new FormControl("", Validators.required),
       password: new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
-      confirmPassword: new FormControl("", [Validators.required, this.matchValues("password")])
+      confirmPassword: new FormControl("", [Validators.required, this.matchValues('password')])
     })
     this.registerForm.controls.password.valueChanges.subscribe(() => {
       this.registerForm.controls.confirmPassword.updateValueAndValidity();
@@ -32,9 +32,13 @@ export class RegisterComponent implements OnInit {
 
   matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl) => {
-      return control?.value === (control?.parent?.controls as { [key: string]: AbstractControl })[matchTo].value ? null : {isMatching: true}
+      if (control.parent && control.parent.controls) {
+        return control?.value === (control?.parent?.controls as { [key: string]: AbstractControl })[matchTo].value ? null : {isMatching: true}
+      }
+      return null;
     }
   }
+
   register(){
     console.log(this.registerForm);
     // this.accountService.register(this.model).subscribe(response => {
