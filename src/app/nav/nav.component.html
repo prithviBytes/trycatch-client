@@ -16,7 +16,7 @@
           </ng-container>
         </ul>
         <div class="dropdown" dropdown *ngIf="(accountService.currentUser$| async) as user">
-          <img class="nav-image" src="{{user.photoUrl}}" alt="{{user.photoUrl}}">
+          <img class="nav-image" src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.photoUrl}}">
           <a dropdownToggle class="dropdown-toggle text-light ml-2">Welcome {{user.username | titlecase}}</a>
           <div *dropdownMenu class="dropdown-menu mt-3">
             <a routerLink="/member/edit" class="dropdown-item">Edit Profile</a>
